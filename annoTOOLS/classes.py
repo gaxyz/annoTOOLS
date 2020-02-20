@@ -32,50 +32,65 @@ class gene:
     
         self.CDSs = dict()
 
-        self.name = self.species + "GEN" + self.number
+        self.newnumber = ("0"*7)[0:len(self.number) - 1] + self.number 
+
+        self.name = self.species + "GEN" + self.newnumber
 
     
-    def add_exon(self, start, end, n):
+    def add_exon(self, start, end , oldname):
 
-        # n is exon number (not arbitrary)
+        # Assign number
+        #### NUMBER ASSIGNMENT NOT IN GENOMIC ORDER!!!!!!
         
-        name = self.species + "EXO" + self.number + "." + str(n)
+        n = len(self.exons) + 1
+        
+        # Name it
+        
+        name = self.species + "EXO" + self.newnumber + "." + str(n)
 
         # Convert to within-gene coordinate
 
-        start = start - self.start
-        end = end - self.start
+        start = int(start) - self.start
+        end = int(end) - self.start
 
         # Add to dict
 
-        self.exons[name] = [int(start), int(end)]
+        self.exons[name] = [int(start), int(end), oldname ]
 
-    def add_mrna(self, start, end ,n ):
+    def add_mrna(self, start, end , oldname ):
 
-        name = self.species + "MRN" + self.number + "." + str(n)
+        # Assign number
+        n = len(self.mRNAs) + 1 
+        # Name it
+
+        name = self.species + "MRN" + self.newnumber + "." + str(n)
 
         # Convert to within-gene coordinate
 
-        start = start - self.start
-        end = end - self.start
+        start = int(start) - self.start
+        end = int(end) - self.start
 
         # Add to dict
 
-        self.mRNAs[name] = [int(start), int(end)]
+        self.mRNAs[name] = [int(start), int(end), oldname ]
 
-    def add_cds(self, start, end, n):
+    def add_cds(self, start, end, oldname ):
 
-        name = self.species + "CDS" + self.number + "." + str(n)
+        # Assign number
+        n = len(self.CDSs) + 1
+        # Name it
+
+        name = self.species + "CDS" + self.newnumber + "." + str(n)
 
         # Convert to within-gene coordinate
 
-        start = start - self.start
-        end = end - self.start
+        start = int(start) - self.start
+        end = int(end) - self.start
 
         # Add to dict
 
 
-        self.CDSs[name] = [int(start) , int(end)]
+        self.CDSs[name] = [int(start) , int(end), oldname ]
 
     # Method to get longest (specified) feature ID
 
@@ -92,7 +107,30 @@ class gene:
 
         return longest_id
             
-            
+    # Method to print OLDNAME -> NEWNAME table
+
+    def print_rename_table( self ):
+
+        # Format:
+        # OLDNAME FATURE NEWNAME
+
+        # gene
+        g = "{0} gene {1}".format( self.original_id, self.name )
+        print( g )
+        # exons
+        for entry in self.exons:
+            e = "{0} exon {1}".format( self.exons[entry][2], entry )
+            print(e)
+
+        # mrnas
+        for entry in self.mRNAs:
+            e = "{0} mRNA {1}".format( self.mRNAs[entry][2], entry )
+            print(e)
+
+        # cdss
+        for entry in self.CDSs:
+            e = "{0} CDS {1}".format( self.CDSs[entry][2], entry )
+            print(e)
 
 
 

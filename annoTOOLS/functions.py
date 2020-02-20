@@ -8,6 +8,7 @@ It will produce two outputs:
 """
 
 from annoTOOLS.classes import gff3_entry
+from annoTOOLS.classes import gene
 
 gff3 = "../sandbox/SMAN.gff3" # For testing purposes
 
@@ -60,29 +61,55 @@ def update_nesting( gff3_file, gff3_dictionary ):
                         pass
 
 
-def gff3_to_gene( entry, species, number,feature ):
+def gff3_to_gene( gff3_dict , species ):
     
     """
-    Turn gff3_entry object into a gene object
+    Turn a gff3_entry dictionary into a gene dictionary
 
     number is a counter number for id generation
     """
 
+    gene_dict = {}
 
-    if feature == "gene":
+    # Do first traversal to add genes
+    counter = 0
+    for key in gff3_dict:
+        
+        entry = gff3_dict[ key ]
+        if entry.feature == "gene":
 
-        g=gene( species,
-                number,
-                entry.chromosome,
-                entry.start,
-                entry.end,
-                entry.strand,
-                entry.id )
-    
-    
+            g=gene( species,
+                    counter,
+                    entry.chromosome,
+                    entry.start,
+                    entry.end,
+                    entry.strand,
+                    entry.id )
+            gene_dict[ entry.id ] = g
+            counter+=1
 
-        return g
             
+    # Do second traversal to add nested features
+    for key in gff3_dict:
+
+        entry = gff3_dict[key]
+
+        if entry.feature == "gene":
+            pass
+        elif entry.feature == "exon":
+            gene_dict[ entry.gene ].add_exon( entry.start, entry.end, entry.id )
+        elif entry.feature == "mRNA":
+            gene_dict[ entry.gene ].add_mrna( entry.start, entry.end, entry.id )
+        elif entry.feature == "CDS":
+            gene_dict[ entry.gene ].add_cds( entry.start, entry.end, entry.id  )
+        else:
+            pass
+    
+
+        
+    return gene_dict    
+
+
 
 
 

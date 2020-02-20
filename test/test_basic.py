@@ -20,7 +20,16 @@ sman = read_gff3( sman_gff )
 
 update_nesting( sman_gff, sman )
 
-# Print to test
+# Convert to gene class
 
-for i in sman:
-    print(sman[i].get_entry())
+gene_dict = gff3_to_gene( sman, "SMAN" )
+
+
+# Print table of oldname -> newname
+
+
+for i in gene_dict:
+
+    gene_dict[ i ].print_rename_table()
+
+
