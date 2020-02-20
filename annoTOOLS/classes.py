@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 
+
+
+##########################
+#    CLASSES             #
+##########################
+
 class gene:
     """Class made for storing exons, mRNAs and CDSs within genes"""
 
@@ -211,30 +217,4 @@ class gff3_entry:
 
         else:
             print( "Error: Only exon and CDS entries are modifiable with add_gene_feature() method." )
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

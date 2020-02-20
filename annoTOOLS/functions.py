@@ -7,7 +7,7 @@ It will produce two outputs:
     + a crossreference of old <-> new ids for tractable data.
 """
 
-from classes import gff3_entry
+from annoTOOLS.classes import gff3_entry
 
 gff3 = "../sandbox/SMAN.gff3" # For testing purposes
 
