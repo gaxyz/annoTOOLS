@@ -97,11 +97,22 @@ def gff3_to_gene( gff3_dict , species ):
         if entry.feature == "gene":
             pass
         elif entry.feature == "exon":
-            gene_dict[ entry.gene ].add_exon( entry.start, entry.end, entry.id )
+            try:
+                gene_dict[ entry.gene ].add_exon( entry.start, entry.end, entry.id )
+            except KeyError:
+                pass
+
         elif entry.feature == "mRNA":
-            gene_dict[ entry.gene ].add_mrna( entry.start, entry.end, entry.id )
+            try:
+                gene_dict[ entry.gene ].add_mrna( entry.start, entry.end, entry.id )
+            except KeyError:
+                pass
         elif entry.feature == "CDS":
-            gene_dict[ entry.gene ].add_cds( entry.start, entry.end, entry.id  )
+            try:
+                gene_dict[ entry.gene ].add_cds( entry.start, entry.end, entry.id  )
+            except KeyError:
+                pass
+                
         else:
             pass
     

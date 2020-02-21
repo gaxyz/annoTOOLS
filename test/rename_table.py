@@ -10,19 +10,28 @@ from annoTOOLS.classes import *
 from annoTOOLS.functions import *
 
 
-# First, read gff3 entry into variable
+####
+#sp_gff = sys.argv[1]
+#sp_gff = sys.argv[2]
 
-sman_gff = "../../sandbox/SMAN.gff3"
-sman = read_gff3( sman_gff )
+####
+sp_gff = "../../sandbox/SMAN.gff3"
+sp_name = "SMAN"
+##
+
+
+# First, read gff3 entry into variable
+sp = read_gff3( sp_gff )
 
 
 # Now, update nesting structure (gene,protein,mRNA,exon)
 
-update_nesting( sman_gff, sman )
+update_nesting( sp_gff, sp )
 
 # Convert to gene class
 
-gene_dict = gff3_to_gene( sman, "SMAN" )
+gene_dict = gff3_to_gene( sp, sp_name )
+
 
 
 # Print table of oldname -> newname

@@ -32,7 +32,7 @@ class gene:
     
         self.CDSs = dict()
 
-        self.newnumber = ("0"*7)[0:len(self.number) - 1] + self.number 
+        self.newnumber = "0"*(7-len(self.number)) + self.number
 
         self.name = self.species + "GEN" + self.newnumber
 
@@ -40,13 +40,13 @@ class gene:
     def add_exon(self, start, end , oldname):
 
         # Assign number
-        #### NUMBER ASSIGNMENT NOT IN GENOMIC ORDER!!!!!!
         
-        n = len(self.exons) + 1
+        n_mrna = oldname.split(".")[-2]
+        n = oldname.split(".")[-1]
         
         # Name it
         
-        name = self.species + "EXO" + self.newnumber + "." + str(n)
+        name = self.species + "EXO" + self.newnumber + "." + n_mrna + "." + n
 
         # Convert to within-gene coordinate
 
@@ -60,10 +60,10 @@ class gene:
     def add_mrna(self, start, end , oldname ):
 
         # Assign number
-        n = len(self.mRNAs) + 1 
+        n = oldname.split(".")[-1]
         # Name it
 
-        name = self.species + "MRN" + self.newnumber + "." + str(n)
+        name = self.species + "MRN" + self.newnumber + "." + n
 
         # Convert to within-gene coordinate
 
@@ -77,10 +77,10 @@ class gene:
     def add_cds(self, start, end, oldname ):
 
         # Assign number
-        n = len(self.CDSs) + 1
+        n = oldname.split(".")[-1] 
         # Name it
 
-        name = self.species + "CDS" + self.newnumber + "." + str(n)
+        name = self.species + "CDS" + self.newnumber + "." + n
 
         # Convert to within-gene coordinate
 
