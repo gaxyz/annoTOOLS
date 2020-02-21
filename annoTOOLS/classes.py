@@ -109,28 +109,30 @@ class gene:
             
     # Method to print OLDNAME -> NEWNAME table
 
-    def print_rename_table( self ):
+    def get_rename_table( self ):
 
         # Format:
         # OLDNAME FATURE NEWNAME
-
+        outstring = ""
         # gene
         g = "{0} gene {1}".format( self.original_id, self.name )
-        print( g )
+        outstring = outstring + g + "\n"
         # exons
         for entry in self.exons:
             e = "{0} exon {1}".format( self.exons[entry][2], entry )
-            print(e)
+            outstring = outstring + e + "\n"
 
         # mrnas
         for entry in self.mRNAs:
             e = "{0} mRNA {1}".format( self.mRNAs[entry][2], entry )
-            print(e)
+            outstring = outstring + e + "\n"
 
         # cdss
         for entry in self.CDSs:
             e = "{0} CDS {1}".format( self.CDSs[entry][2], entry )
-            print(e)
+            outstring = outstring + e + "\n"
+
+        return outstring
 
 
 
