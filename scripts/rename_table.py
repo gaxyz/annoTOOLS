@@ -2,6 +2,7 @@
 
 import os
 import sys
+import pickle
 
 sys.path.insert( 0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -21,6 +22,8 @@ sp_list = ["SMAN",
             "SMED"
             ]
 outfile = "/export/home/grijo/projects/platy/data/crossref.tab"
+pickle_dir = "/export/home/grijo/projects/platy/data/pickle/geneDicts"
+
 
 with open( outfile , 'w' ) as handle:
 
@@ -42,6 +45,13 @@ with open( outfile , 'w' ) as handle:
        print(">>>>> Converting to gene class")
        gene_dict = gff3_to_gene( sp, sp_name )
 
+       # Save gene dict in pickle file
+       print(">>>>> Pickling gene dict")
+       filepath = pickle_dir + "/" + species + ".genedict.pkl"
+       f = open( filepath , 'wb' )
+       pickle.dump( gene_dict, f )
+       f.close()
+
        # Print table of oldname -> newname
 
        print(">>>>> Writing crossreference table")
@@ -50,3 +60,4 @@ with open( outfile , 'w' ) as handle:
            handle.write( gene_dict[ i ].get_rename_table() )
 
        print("Done! <<<<<<<<<<<<<<<<<<") 
+

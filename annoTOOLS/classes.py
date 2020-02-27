@@ -96,16 +96,17 @@ class gene:
 
     def get_longest(self, feature):
 
-        dictionary = {"CDS": self.CDSs ,"MRNA": self.MRNAs , "EXON": self.exons}
+        dictionary = {"CDS": self.CDSs ,"MRNA": self.mRNAs , "EXON": self.exons}
         longest_len = 0
-        longest_id = ""
+        longest_ids = None
         for key in dictionary[feature]:
 
             length = dictionary[feature][key][1] - dictionary[feature][key][0]
+            
             if length > longest_len:
-                longest_id = key
+                longest_ids = ( key , dictionary[feature][key][2] )
 
-        return longest_id
+        return longest_ids
             
     # Method to print OLDNAME -> NEWNAME table
 
@@ -135,7 +136,11 @@ class gene:
         return outstring
 
 
+            
 
+
+
+        
 
 class gff3_entry:
     """Class for containing gff information. Only CDS, mRNA, exon and gene entries are kept"""
