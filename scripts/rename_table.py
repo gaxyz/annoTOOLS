@@ -14,6 +14,8 @@ sp_list = ["SMAN",
             "SJAP",
             "TREG",
             "FHEP",
+            "FGIG",
+            "FBUS",
             "CSIN",
             "OVIV",
             "SMED"

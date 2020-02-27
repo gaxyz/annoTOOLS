@@ -37,16 +37,16 @@ class gene:
         self.name = self.species + "GEN" + self.newnumber
 
     
-    def add_exon(self, start, end , oldname):
+    def add_exon(self, start, end, oldname):
 
         # Assign number
         
-        n_mrna = oldname.split(".")[-2]
-        n = oldname.split(".")[-1]
+       
+        n = len(self.exons) + 1
         
         # Name it
         
-        name = self.species + "EXO" + self.newnumber + "." + n_mrna + "." + n
+        name = self.species + "EXO" + self.newnumber  + "." + str(n)
 
         # Convert to within-gene coordinate
 
@@ -60,10 +60,10 @@ class gene:
     def add_mrna(self, start, end , oldname ):
 
         # Assign number
-        n = oldname.split(".")[-1]
+        n = len(self.mRNAs) + 1
         # Name it
 
-        name = self.species + "MRN" + self.newnumber + "." + n
+        name = self.species + "MRN" + self.newnumber + "." + str(n)
 
         # Convert to within-gene coordinate
 
@@ -77,10 +77,10 @@ class gene:
     def add_cds(self, start, end, oldname ):
 
         # Assign number
-        n = oldname.split(".")[-1] 
+        n = len(self.CDSs) + 1
         # Name it
 
-        name = self.species + "CDS" + self.newnumber + "." + n
+        name = self.species + "CDS" + self.newnumber + "." + str(n)
 
         # Convert to within-gene coordinate
 
